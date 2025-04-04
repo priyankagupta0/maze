@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../static/css/index.css" />
+    <link rel="stylesheet" href="../static/css/slider.css" />
+    <title>Maze Solver</title>
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <div>
+        <canvas id="mazeCanvas"></canvas>
+      </div>
+
+      <div class="slidecontainer">
+        <label for="sizeSlider"
+          >Cell Size: <span id="sizeValue">20</span>px</label
+        >
+        <input
+          type="range"
+          id="sizeSlider"
+          min="5"
+          max="50"
+          step="2"
+          value="20"
+        />
+      </div>
+    </div>
+
+    <script src="../static/js/index.js"></script>
+  </body>
+</html>

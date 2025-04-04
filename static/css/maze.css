@@ -1,0 +1,205 @@
+/* General styling */
+body {
+    font-family: 'Inter', sans-serif; /* Switched to Inter for a more modern, minimalist font */
+    background: #FFFFFF; /* Subtle dark gradient for depth */
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    padding: 20px;
+    color: #000000; 
+}
+
+/* Maze container */
+#mazeContainer {
+    display: grid;
+    gap: 0; /* Keep the gap at 0 for seamless cells */
+    margin-bottom: 20px;
+    background: #42A5F5; /* Darker blue-gray to match the maze image */
+    padding: 3px; /* Slightly increased padding for a cleaner frame */
+    border-radius: 10px;
+    box-shadow: 0 8px 20px #093F564d; /* Deeper shadow for a floating effect */
+    border: 1px solid #093F561a; /* Subtle border for definition */
+}
+
+/* Maze cells */
+.cell {
+    transition: background-color 0.3s ease; /* Smooth transition for cell changes */
+    border: none; /* Keep borders off for a seamless look */
+    position: relative;
+}
+
+.visited {
+    background-color: #badafc !important; /* Gold-yellow to match the maze image */
+    z-index: 1;
+}
+
+/* Path and wall styles */
+.wall {
+    background-color: #42A5F5; /* Darker blue-gray for walls, matching the image */
+}
+
+.path {
+    background-color: #ffffff; /* Slightly lighter blue-gray for paths, creating contrast */
+}
+
+/* Start and end styles */
+.start {
+    background-color: #e74c3c; /* Red to match the maze image's start */
+    box-shadow: 0 0 12px rgba(231, 76, 60, 0.7); /* Slightly stronger glow */
+}
+
+.end {
+    background-color: #2ecc71; /* Green to match the maze image's end */
+    box-shadow: 0 0 12px rgba(46, 204, 113, 0.7); /* Matching glow */
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.15); opacity: 0.7; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Current position animation */
+.current {
+    background-color: #0050fd !important; /* Bright blue for the current cell */
+    box-shadow: 0 0 10px rgba(22, 73, 150, 0.856); /* Matching glow */
+    animation: highlight 0.3s ease-out;
+}
+
+@keyframes highlight {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); }
+}
+
+/* Button styling */
+button {
+    padding: 10px 20px; /* Slightly smaller for a minimalist look */
+    font-size: 14px; /* Smaller font for elegance */
+    font-weight: 500; /* Medium weight for a classy feel */
+    background: linear-gradient(90deg, #3498db, #2980b9); /* Gradient for a modern touch */
+    color: #ffffff;
+    border: none;
+    border-radius: 6px; /* Softer corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    cursor: pointer;
+    transition: all 0.3s ease; /* Smooth transition for all properties */
+    margin-top: 15px;
+}
+
+button:hover {
+    background: linear-gradient(90deg, #42A5F5, #1f618d); /* Darker gradient on hover */
+    transform: translateY(-2px); /* Lift effect */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Stronger shadow on hover */
+}
+
+button:active {
+    background: linear-gradient(90deg, #1f618d, #154360); /* Even darker for active state */
+    transform: translateY(0); /* Reset lift */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* Reduced shadow */
+}
+/* Slider container */
+.slider-container {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    align-items: center;
+    gap: 10px; /* Space between label, slider, and value */
+    margin-top: 15px;
+    padding: 10px 15px;
+    background: #ffffff; /* Very light gray background for subtle contrast */
+    border-radius: 8px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Slider label */
+.slider-container label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #000000; /* Dark text for contrast */
+}
+
+/* Slider value */
+#cellSizeValue {
+    font-size: 14px;
+    font-weight: 500;
+    color: #42A5F5; /* Blue to match the maze walls */
+    background: #FFFFFF; /* White background for the value */
+    padding: 2px 8px;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Slider input */
+input[type="range"] {
+    -webkit-appearance: none; /* Remove default browser styling */
+    appearance: none;
+    width: 150px; /* Fixed width for consistency */
+    height: 6px; /* Thin track for a minimalist look */
+    background: linear-gradient(90deg, #42A5F5, #2196F3); /* Blue gradient to match the maze */
+    border-radius: 3px;
+    outline: none;
+    transition: background 0.3s ease;
+}
+
+/* Slider track (for browsers like Firefox) */
+input[type="range"]::-webkit-slider-runnable-track {
+    background: linear-gradient(90deg, #42A5F5, #2196F3);
+    height: 6px;
+    border-radius: 3px;
+}
+
+input[type="range"]::-moz-range-track {
+    background: linear-gradient(90deg, #42A5F5, #2196F3);
+    height: 6px;
+    border-radius: 3px;
+}
+
+/* Slider thumb (the draggable part) */
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    background: #FFFFFF; /* White thumb for contrast */
+    border: 2px solid #42A5F5; /* Blue border to match the track */
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    background: #FFFFFF;
+    border: 2px solid #42A5F5;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Hover and active states for the thumb */
+input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.1); /* Slight scale-up on hover */
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3); /* Stronger shadow */
+}
+
+input[type="range"]::-moz-range-thumb:hover {
+    transform: scale(1.1);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+input[type="range"]::-webkit-slider-thumb:active {
+    background: #42A5F5; /* Blue fill when active */
+    border-color: #FFFFFF; /* White border for contrast */
+}
+
+input[type="range"]::-moz-range-thumb:active {
+    background: #42A5F5;
+    border-color: #FFFFFF;
+}

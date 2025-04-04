@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Maze Generator</title>
+    <link rel="stylesheet" href="../static/css/maze.css" />
+</head>
+<body>
+    <h1>ewfw</h1>
+    
+    <!-- Maze Container -->
+    <div id="mazeContainer" class="maze"></div>
+
+    <!-- Cell Size Slider -->
+    <div class="slider-container">
+        <label for="cellSizeSlider">Cell Size:</label>
+        <input type="range" id="cellSizeSlider" min="10" max="50" value="24" step="1" />
+        <span id="cellSizeValue">24px</span>
+    </div>
+
+    <!-- Button -->
+    <div>
+        <button onclick="startWallFollower()">Start Left Wall Follower</button>
+        <!-- <button onclick="startWallFollower()">Start Right Wall Follower</button> -->
+    </div>
+
+    <!-- JavaScript -->
+    <script src="../static/js/left_wallfollower.js"></script>
+    <!-- <script src="../static/js/right_wallfollower.js"></script> -->
+    <script>
+        let mazeData = null; // Store maze globally
+        let cellSize = 24; // Initial cell size
+
+        // Function to get dynamic maze size based on screen size
+        function getMazeSize() {
+            const width = Math.floor((window.innerWidth - 100) / cellSize);
+            const height = Math.floor((window.innerHeight - 120) / cellSize);
+            return { width, height };
+        }
+
+        async function fetchMaze() {
+            const { width, height } = getMazeSize();
+            const response = await fetch(`/generate_maze/${width}/${height}`);
+            mazeData = await response.json();
+            renderMaze(mazeData);
+        }
+
+        function renderMaze(maze) {
+            const container = document.getElementById("mazeContainer");
+            container.innerHTML = "";
+
+            container.style.gridTemplateColumns = `repeat(${maze[0].length}, ${cellSize}px)`;
+            container.style.gridTemplateRows = `repeat(${maze.length}, ${cellSize}px)`;
+
+            maze.forEach((row, y) => {
+                row.forEach((cell, x) => {
+                    const div = document.createElement("div");
+                    div.classList.add("cell");
+                    div.style.width = `${cellSize}px`;  
+                    div.style.height = `${cellSize}px`; 
+                    div.id = `cell-${y}-${x}`;
+                    if (y === maze.length - 2 && x === 1) {
+                        div.classList.add("start");
+                    } else if (y === 1 && x === maze[0].length - 2) {
+                        div.classList.add("end");
+                    } else if (cell === 1) {
+                        div.classList.add("wall");
+                    } else {
+                        div.classList.add("path");
+                    }
+                    container.appendChild(div);
+                });
+            });
+        }
+
+        // Adjust cell size from slider
+        document.getElementById('cellSizeSlider').addEventListener('input', (event) => {
+            cellSize = parseInt(event.target.value);
+            document.getElementById('cellSizeValue').textContent = `${cellSize}px`;
+            fetchMaze(); // Regenerate maze with new cell size
+        });
+
+
+        function startWallFollower() {
+            if (mazeData) {
+                initializeWallFollower(mazeData);
+            } else {
+                console.error('Maze not loaded yet.');
+            }
+        }
+
+        // Load initial maze
+        fetchMaze();
+
+        // Regenerate maze on window resize
+        window.addEventListener('resize', () => {
+            fetchMaze();
+        });
+    </script>
+</body>
+</html>
