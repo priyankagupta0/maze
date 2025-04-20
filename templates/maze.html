@@ -21,13 +21,14 @@
 
     <!-- Button -->
     <div>
-        <button onclick="startWallFollower()">Start Left Wall Follower</button>
-        <!-- <button onclick="startWallFollower()">Start Right Wall Follower</button> -->
+        <button onclick="startLeftWallFollower()">Start Left Wall Follower</button>
+        <button onclick="startRightWallFollower()">Start Right Wall Follower</button>
     </div>
 
     <!-- JavaScript -->
+    <!-- <script src="../static/js/directions.js"></script> -->
     <script src="../static/js/left_wallfollower.js"></script>
-    <!-- <script src="../static/js/right_wallfollower.js"></script> -->
+    <script src="../static/js/right_wallfollower.js"></script> 
     <script>
         let mazeData = null; // Store maze globally
         let cellSize = 24; // Initial cell size
@@ -81,10 +82,18 @@
             fetchMaze(); // Regenerate maze with new cell size
         });
 
-
-        function startWallFollower() {
+        function startRightWallFollower() {
             if (mazeData) {
-                initializeWallFollower(mazeData);
+                initializeRightWallFollower(mazeData); // This uses the logic from right_wallfollower.js
+            } else {
+                console.error('Maze not loaded yet.');
+            }
+        }
+
+        
+        function startLeftWallFollower() {
+            if (mazeData) {
+                initializeLeftWallFollower(mazeData);
             } else {
                 console.error('Maze not loaded yet.');
             }
