@@ -5,6 +5,7 @@
         { dx: 0, dy: 1 },
         { dx: 1, dy: 0 }
     ];
+
     let maze = [];
     let currentX, currentY;
     let direction = 2; // Start facing down
@@ -16,17 +17,15 @@
 
         // Start position at bottom left
         currentX = 1;
-        currentY = maze.length - 2; //inside the walls
+        currentY = maze.length - 2;
 
         direction = 2; // Facing down
         drawCurrentPosition();
 
-        // Start moving with an interval for animation effect
-        interval = setInterval(moveWallFollower, 100);
-    }
+        interval = setInterval(moveWallFollower, 10);
+    };
 
     function drawCurrentPosition() {
-
         const prevCell = document.querySelector(`#cell-${currentY}-${currentX}`);
         if (prevCell && !prevCell.classList.contains('visited')) {
             prevCell.classList.add('visited');
@@ -42,7 +41,6 @@
         }
     }
 
-
     function moveWallFollower() {
         if (currentX === maze[0].length - 2 && currentY === 1) {
             clearInterval(interval);
@@ -50,18 +48,17 @@
             return;
         }
 
-        // Try turning left first
-        let leftDirection = (direction + 3) % 4;
-        let leftX = currentX + DIRECTIONS[leftDirection].dx;
-        let leftY = currentY + DIRECTIONS[leftDirection].dy;
+        const leftDirection = (direction + 3) % 4;
+        const leftX = currentX + DIRECTIONS[leftDirection].dx;
+        const leftY = currentY + DIRECTIONS[leftDirection].dy;
 
         if (maze[leftY][leftX] === 0) {
             direction = leftDirection;
             currentX = leftX;
             currentY = leftY;
         } else {
-            let forwardX = currentX + DIRECTIONS[direction].dx;
-            let forwardY = currentY + DIRECTIONS[direction].dy;
+            const forwardX = currentX + DIRECTIONS[direction].dx;
+            const forwardY = currentY + DIRECTIONS[direction].dy;
 
             if (maze[forwardY][forwardX] === 0) {
                 currentX = forwardX;
@@ -70,6 +67,7 @@
                 direction = (direction + 1) % 4;
             }
         }
+
         drawCurrentPosition();
     }
 })();

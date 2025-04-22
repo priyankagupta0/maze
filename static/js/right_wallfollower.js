@@ -10,7 +10,7 @@
     let direction = 2; // Start facing down
     let interval;
 
-    function initializeRightWallFollower(mazeData) {
+    window.initializeRightWallFollower = function(mazeData) {
         maze = mazeData;
 
         // Start position at bottom left
@@ -21,7 +21,7 @@
         drawCurrentPosition();
 
         // Start moving with an interval for animation effect
-        interval = setInterval(moveWallFollower, 100);
+        interval = setInterval(moveWallFollower, 10);
     }
 
     function drawCurrentPosition() {
@@ -50,17 +50,17 @@
         }
 
         // Try turning Right first
-        let rightDirection = (direction + 1) % 4;
-        let rightX = currentX + DIRECTIONS[rightDirection].dx;
-        let rightY = currentY + DIRECTIONS[rightDirection].dy;
+        const rightDirection = (direction + 1) % 4;
+        const rightX = currentX + DIRECTIONS[rightDirection].dx;
+        const rightY = currentY + DIRECTIONS[rightDirection].dy;
 
         if (maze[rightY][rightX] === 0) {
             direction = rightDirection;
             currentX = rightX;
             currentY = rightY;
         } else {
-            let forwardX = currentX + DIRECTIONS[direction].dx;
-            let forwardY = currentY + DIRECTIONS[direction].dy;
+            const forwardX = currentX + DIRECTIONS[direction].dx;
+            const forwardY = currentY + DIRECTIONS[direction].dy;
 
             if (maze[forwardY][forwardX] === 0) {
                 currentX = forwardX;
