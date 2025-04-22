@@ -10,7 +10,8 @@
     let direction = 2; // Start facing down
     let interval;
 
-    function initializeLeftWallFollower(mazeData) {
+    // ✅ Expose this function globally
+    window.initializeLeftWallFollower = function(mazeData) {
         maze = mazeData;
 
         // Start position at bottom left
